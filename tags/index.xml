@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on go1me&#39;s 博客</title>
-    <link>https://go1me.github.io/tags/</link>
+    <link>https://haysengithub.github.io/tags/</link>
     <description>Recent content in Tags on go1me&#39;s 博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://go1me.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language><atom:link href="https://haysengithub.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
