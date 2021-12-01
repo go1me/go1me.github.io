@@ -6,7 +6,19 @@
     <description>Recent content in Posts on go1me&#39;s 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 29 Nov 2021 23:29:23 +0800</lastBuildDate><atom:link href="https://go1me.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Dec 2021 19:40:43 +0800</lastBuildDate><atom:link href="https://go1me.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于hugo搭建博客</title>
+      <link>https://go1me.github.io/post/%E5%9F%BA%E4%BA%8Ehugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</link>
+      <pubDate>Wed, 01 Dec 2021 19:40:43 +0800</pubDate>
+      
+      <guid>https://go1me.github.io/post/%E5%9F%BA%E4%BA%8Ehugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</guid>
+      <description>简介  Hugo是由Go语言实现的静态网站生成器。简单、易用、高效、易扩展、快速部署。这句话是抄的。总之就是一个比较好用的的静态页面生成工具。
+工具安装  直接看官网把参考这里
+环境搭建  基于github，我这边创建了两个仓库，一个用来放置Hugo源文件及markdown文件，另外一个用来放置web静态文件，用来发布。
+github仓库创建  创建第一个仓库用于保存Hugo源文件及markdown文件。比如我是https://github.com/go1me/blog.git，，即仓库名为blog，名字可以随便起，然后我设置了非公开项目。 创建第二个仓库用来放置对外发布的web静态文件，这个仓库的名字是固定的，必须是自己 github用户名.github.io，比如我必须是 https://github.com/go1me/go1me.github.io，即仓库名为 go1me.github.io。然后以后就可以用https://go1me.github.io来作为自己的blog的url网址。 当然，如果你不需要用 github.io来作为自己的blog url，第二步可以省略。再当然如过你不需要github保存自己的blog内容，第一步也可以省略。  创建并写博客 # 先clone blog这个仓库git clone git@github:go1me/blog.git# 创建hugo项目，其中blog跟仓库名字相同，--force是因为本地已经有blog文件夹hugo new site blog --forcecd blog#参考https://themes.gohugo.io/themes/github-style/# 添加hugo的模板git submodule add git@github.com:MeiK2333/github-style.git themes/github-style# 参考https://themes.gohugo.io/themes/github-style/修改config.toml#新建一篇文章，编辑hellowod.md写你的博客hugo new post/helloword.md#添加 public文件夹git submodule add git@github.com:go1me/go1me.github.io.git public#编译hugo -D#先提交public,即go1me.github.iocd publicgit add .git commit -m &amp;quot;xxx&amp;quot;git pushcd .</description>
+    </item>
+    
     <item>
       <title>Helloword</title>
       <link>https://go1me.github.io/post/helloword/</link>
