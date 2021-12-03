@@ -155,7 +155,7 @@
                 </path>
               </svg>
               Posts
-              <span class="Counter">2</span>
+              <span class="Counter">3</span>
             </a>
           </nav>
           <div class="profile-color-modes js-promo-color-modes-banner-profile isInitialToggle">
@@ -468,7 +468,7 @@
         </path>
       </svg>
       Posts
-      <span class="Counter ">2</span>
+      <span class="Counter ">3</span>
     </a>
   </nav>
 </div>
@@ -492,6 +492,75 @@
           Popular posts
         </h2>
         <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4 js-pinned-items-reorder-list">
+          
+          <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
+            <div
+              class="Box pinned-item-list-item d-flex p-3 width-full js-pinned-item-list-item public source reorderable sortable-button-item">
+              <div class="pinned-item-list-item-content">
+                <div class="d-flex width-full flex-items-center position-relative">
+                  <svg class="octicon octicon-repo mr-2 text-gray flex-shrink-0" viewBox="0 0 16 16" version="1.1"
+                    width="16" height="16">
+                    <path fill-rule="evenodd"
+                      d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
+                    </path>
+                  </svg>
+                  <a class="text-bold flex-auto min-width-0" href="https://go1me.github.io/post/%E4%B8%80%E9%81%93%E9%80%86%E5%90%91%E9%A2%98ror%E7%9A%84writeup/">
+                    <span class="repo" title="一道逆向题ROR的writeup">一道逆向题ROR的writeup</span>
+                  </a>
+                </div>
+
+
+                <div name="summary" class="pinned-item-desc text-gray text-small d-block mt-2 mb-3">
+                  11月20日的时候，参加了西湖论剑CTF线上初选赛，此为此次竞赛REVERS第三题的wirteup，该题题目为ROR。
+查看文件类型  使用file文件查看文件类型，发现文件为32位exe文件
+使用IDA打开exe文件  使用32位IDA打开然后打开字符串页面发现有flag字符串
+跳过去代码是这样的
+代码走查 代码第37行接收输入Dst;
+代码第38行判断输入字符长度是否为40;
+代码第39到46行（截图没截全）是通过输入Dst通过某种变换得到Buf2;
+代码第47行是比较Buf2和unk_405100内存中的内容;
+代码第53行提示如果47行内存内容相同则输入的Dst就是flag，flag长度为40个字符。
+公式变换 关键就是30行到46行，现在的写法比较不好理解，我们稍微转换一下*(&amp;v2+j)其实就是v2[j]，以此类推得出如下公式:
+for ( i = 0; i &lt; 0x28; i += 8 ) { for ( j = 0; j &lt; 8; ++j ) { v0=((v2[j]&amp;v16[i])&lt;&lt;(8-(3- j)%8))|((v2[j]&amp;v16[i])&gt;&gt;(3-j)%8)|((v2[j]&amp;v15[i])&lt;&lt;(8-(2-j)%8))|((v2[j]&amp;v15[i])&gt;&gt;(2 - j)%8)|((v2[j]&amp;v14[i])&lt;&lt;(8-(1-j)%8))|((v2[j]&amp;v14[i])&gt;&gt;(1-j)%8)|((v2[j]&amp;Dst[i])&lt;&lt;(8-(0-j)%8))|((v2[j]&amp;Dst[i])&gt;&gt;(0-j)%8); Buf2[j + i] = byte_405000[((v2[j]&amp;v20[i])&lt;&lt;(8-(7-j)%8))|((v2[j]&amp;v20[i])&gt;&gt;(7 - j)%8)|((v2[j]&amp;v19[i])&lt;&lt;(8-(6-j)%8))|((v2[j]&amp;v19[i])&gt;&gt;(6-j)%8)|((v2[j]&amp;v18[i])&lt;&lt;(8-(5-j)%8))|((v2[j]&amp;v18[i])&gt;&gt;(5-j)%8)|((v2[j]&amp;v17[i])&lt;&lt;(8-(4-j)%8)|((v2[j]&amp;v17[i])&gt;&gt;(4-j)%8)|v0)]; } } 其中有一个重复的结构(v2[j]&amp;v16[i])&laquo;(8-(3- j)%8))|((v2[j]&amp;v16[i])&raquo;(3-j)%8)，可以百度一下，这个就是ROR算法，循环右移。
+因此上面的长长的公式可以再变化：
+for ( i = 0; i &lt; 0x28; i += 8 ) { for ( j = 0; j &lt; 8; ++j ) { v0= ROR(v2[j]&amp;v16[i],(3-j)%8)|ROR(v2[j]&amp;v15[i],(2-j)%8)|ROR(v2[j]&amp;v14[i],(1-j)%8)|ROR(v2[j]&amp;Dst[i],(0-j)%8); Buf2[j + i] = byte_405000[ROR(v2[j]&amp;v20[i],(7-j)%8)|ROR(v2[j]&amp;v19[i],(6-j)%8)|ROR(v2[j]&amp;v18[i],(5-j)%8)|ROR(v2[j]&amp;v17[i],(4-j)%8)|v0]; } } 其中ROR为循环右移函数。
+                </div>
+
+                <p class="mb-0 f6 text-gray">
+                  
+                  
+                  <a href="/tags/ctf" class="pinned-item-meta muted-link ">
+                    <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                      <path fill-rule="evenodd"
+                        d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                      </path>
+                    </svg>
+                    ctf
+                  </a>
+                  
+                  <a href="/tags/revers" class="pinned-item-meta muted-link ">
+                    <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                      <path fill-rule="evenodd"
+                        d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                      </path>
+                    </svg>
+                    revers
+                  </a>
+                  
+                  <a href="/tags/writeup" class="pinned-item-meta muted-link ">
+                    <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                      <path fill-rule="evenodd"
+                        d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                      </path>
+                    </svg>
+                    writeup
+                  </a>
+                  
+                  
+                </p>
+              </div>
+            </div>
+          </li>
           
           <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
             <div
@@ -578,6 +647,12 @@ github仓库创建  创建第一个仓库用于保存Hugo源文件及markdown文
 
     
     <div class="mt-4 position-relative" id="contributions" data='[
+{
+  "title": "%e4%b8%80%e9%81%93%e9%80%86%e5%90%91%e9%a2%98ROR%e7%9a%84writeup",
+  "link": "https://go1me.github.io/post/%E4%B8%80%E9%81%93%E9%80%86%E5%90%91%E9%A2%98ror%E7%9A%84writeup/",
+  "publishDate": "2021-12-03%2020:10:19"
+},
+
 {
   "title": "%e5%9f%ba%e4%ba%8ehugo%e6%90%ad%e5%bb%ba%e5%8d%9a%e5%ae%a2",
   "link": "https://go1me.github.io/post/%E5%9F%BA%E4%BA%8Ehugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/",

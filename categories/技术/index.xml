@@ -6,7 +6,28 @@
     <description>Recent content in 技术 on go1me&#39;s 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 01 Dec 2021 19:40:43 +0800</lastBuildDate><atom:link href="https://go1me.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 03 Dec 2021 20:10:19 +0800</lastBuildDate><atom:link href="https://go1me.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一道逆向题ROR的writeup</title>
+      <link>https://go1me.github.io/post/%E4%B8%80%E9%81%93%E9%80%86%E5%90%91%E9%A2%98ror%E7%9A%84writeup/</link>
+      <pubDate>Fri, 03 Dec 2021 20:10:19 +0800</pubDate>
+      
+      <guid>https://go1me.github.io/post/%E4%B8%80%E9%81%93%E9%80%86%E5%90%91%E9%A2%98ror%E7%9A%84writeup/</guid>
+      <description>11月20日的时候，参加了西湖论剑CTF线上初选赛，此为此次竞赛REVERS第三题的wirteup，该题题目为ROR。
+查看文件类型  使用file文件查看文件类型，发现文件为32位exe文件
+使用IDA打开exe文件  使用32位IDA打开然后打开字符串页面发现有flag字符串
+跳过去代码是这样的
+代码走查 代码第37行接收输入Dst;
+代码第38行判断输入字符长度是否为40;
+代码第39到46行（截图没截全）是通过输入Dst通过某种变换得到Buf2;
+代码第47行是比较Buf2和unk_405100内存中的内容;
+代码第53行提示如果47行内存内容相同则输入的Dst就是flag，flag长度为40个字符。
+公式变换 关键就是30行到46行，现在的写法比较不好理解，我们稍微转换一下*(&amp;amp;v2+j)其实就是v2[j]，以此类推得出如下公式:
+for ( i = 0; i &amp;lt; 0x28; i += 8 ) { for ( j = 0; j &amp;lt; 8; ++j ) { v0=((v2[j]&amp;amp;v16[i])&amp;lt;&amp;lt;(8-(3- j)%8))|((v2[j]&amp;amp;v16[i])&amp;gt;&amp;gt;(3-j)%8)|((v2[j]&amp;amp;v15[i])&amp;lt;&amp;lt;(8-(2-j)%8))|((v2[j]&amp;amp;v15[i])&amp;gt;&amp;gt;(2 - j)%8)|((v2[j]&amp;amp;v14[i])&amp;lt;&amp;lt;(8-(1-j)%8))|((v2[j]&amp;amp;v14[i])&amp;gt;&amp;gt;(1-j)%8)|((v2[j]&amp;amp;Dst[i])&amp;lt;&amp;lt;(8-(0-j)%8))|((v2[j]&amp;amp;Dst[i])&amp;gt;&amp;gt;(0-j)%8); Buf2[j + i] = byte_405000[((v2[j]&amp;amp;v20[i])&amp;lt;&amp;lt;(8-(7-j)%8))|((v2[j]&amp;amp;v20[i])&amp;gt;&amp;gt;(7 - j)%8)|((v2[j]&amp;amp;v19[i])&amp;lt;&amp;lt;(8-(6-j)%8))|((v2[j]&amp;amp;v19[i])&amp;gt;&amp;gt;(6-j)%8)|((v2[j]&amp;amp;v18[i])&amp;lt;&amp;lt;(8-(5-j)%8))|((v2[j]&amp;amp;v18[i])&amp;gt;&amp;gt;(5-j)%8)|((v2[j]&amp;amp;v17[i])&amp;lt;&amp;lt;(8-(4-j)%8)|((v2[j]&amp;amp;v17[i])&amp;gt;&amp;gt;(4-j)%8)|v0)]; } } 其中有一个重复的结构(v2[j]&amp;amp;v16[i])&amp;laquo;(8-(3- j)%8))|((v2[j]&amp;amp;v16[i])&amp;raquo;(3-j)%8)，可以百度一下，这个就是ROR算法，循环右移。
+因此上面的长长的公式可以再变化：
+for ( i = 0; i &amp;lt; 0x28; i += 8 ) { for ( j = 0; j &amp;lt; 8; ++j ) { v0= ROR(v2[j]&amp;amp;v16[i],(3-j)%8)|ROR(v2[j]&amp;amp;v15[i],(2-j)%8)|ROR(v2[j]&amp;amp;v14[i],(1-j)%8)|ROR(v2[j]&amp;amp;Dst[i],(0-j)%8); Buf2[j + i] = byte_405000[ROR(v2[j]&amp;amp;v20[i],(7-j)%8)|ROR(v2[j]&amp;amp;v19[i],(6-j)%8)|ROR(v2[j]&amp;amp;v18[i],(5-j)%8)|ROR(v2[j]&amp;amp;v17[i],(4-j)%8)|v0]; } } 其中ROR为循环右移函数。</description>
+    </item>
+    
     <item>
       <title>基于hugo搭建博客</title>
       <link>https://go1me.github.io/post/%E5%9F%BA%E4%BA%8Ehugo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</link>
