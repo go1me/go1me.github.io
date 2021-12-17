@@ -6,7 +6,30 @@
     <description>Recent content in Posts on go1me&#39;s 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 03 Dec 2021 20:10:19 +0800</lastBuildDate><atom:link href="https://go1me.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Dec 2021 19:19:55 +0800</lastBuildDate><atom:link href="https://go1me.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>介绍一款自己编写的CTF工具</title>
+      <link>https://go1me.github.io/post/%E4%BB%8B%E7%BB%8D%E4%B8%80%E6%AC%BE%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84ctf%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Fri, 17 Dec 2021 19:19:55 +0800</pubDate>
+      
+      <guid>https://go1me.github.io/post/%E4%BB%8B%E7%BB%8D%E4%B8%80%E6%AC%BE%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84ctf%E5%B7%A5%E5%85%B7/</guid>
+      <description>本人最近参加了网鼎杯ctf大赛的线上海选赛，在准备比赛的过程中，自然需要用到很多工具，因为网上找的一些工具感觉都不是很顺手，而且也怕加料，因此自己再造一副轮子，也算是练手。练手有练手的好处，可以把常用的代码集中在这个工具下，抄的时候，额，不是，是找的时候好找。觉得用着还可以，这里分享给大家。
+介绍  先上截图： 各位大佬可能说了，这种工具不是满天飞么，你这个有啥优点，优点如下：
+ 纯python编写，GUI框架采用的是Tkinter，支持跨平台（只支持python3） 插件化编程，只要用python按照预设的简单插件格式编写插件，放置于plugins，启动程序后会自动识别插件 想想，就这么多吧，没了  使用方法：  去https://github.com/go1me/ctftools将代码克隆下来 切换到目录下运行python3 mian.py即可，如果运行过程中发现缺包，按照报错提示安装即可 选择插件，插件有两种选择方式  1)通过界面上的下拉框选择 2)通过菜单栏选择，菜单栏分为解密，加密，转换，rsa和其他五给分类 3)输入框输入需要处理的字符串 本文以栅栏密码暴力破解为例，输入框输入需要破解的字符串 4)点击run 然后在输出框查看结果
+插件编写 插件模板为
+非常简单，以plugin为开头的全局变量为插件的属性参数，按照要求写即可。然后实现一个run函数，run的输入来自输入框的字符串，输出会反馈到输出框。
+编写好的插件放置到plugins文件夹下，然后重启python3 mian.py即可在界面上显示。
+编写插件的时候有给窍门，就是插件的名字plugin_name，如果字符串中含有“加密”或者“编码”两个字符，会自动分类到“加密”的菜单栏
+如果含有“解密”或者“解码”两个字符会自动分类到“解密”的菜单栏
+如果含有“转”，比如“字符串转十六进制”，会被分类到“转换”的菜单栏
+如果含有“rsa”，即可分类到“rsa”的菜单栏
+剩下的插件会被分类到其他
+目前已经编写了37个插件，还在持续增加中。
+ 特别要说明的是，插件不是程序一开启就全部加载的，而是选中一个加载一个，为什么要这样设计呢，第一是加快程序开启速度，二是很多插件依赖各种各样的python包，一股脑加载需要安装各种包，就烦死了，选中的时候再加载，如果你的环境缺什么包，报错信息会显示在输入框，及时安装即可。
+其他功能  从“文件”菜单可以导入文件到输入框，和将输入框/输出框到处到文件 “编辑”菜单提供了：
+ 清空，清空输入框 复制输出，将输出框结果复制到剪切板 输出变输入，适合多次编码或者多次解码的场景，比如url多次编码，编码一次，将输出变为输入，继续编码 复制当前插件路径，这个功能是用来方便抄代码的 导入测试用例，方便快速验证插件，测试用例来自插件模板中的plugin_test_in字段 常用的三个功能做成了按钮放到了输入框的上面    然后，就没了，觉得没啥的各位大佬直接忽略。</description>
+    </item>
+    
     <item>
       <title>一道逆向题ROR的writeup</title>
       <link>https://go1me.github.io/post/%E4%B8%80%E9%81%93%E9%80%86%E5%90%91%E9%A2%98ror%E7%9A%84writeup/</link>

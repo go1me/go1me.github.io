@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ctf on go1me&#39;s 博客</title>
-    <link>https://go1me.github.io/tags/ctf/</link>
-    <description>Recent content in ctf on go1me&#39;s 博客</description>
+    <title>工具 on go1me&#39;s 博客</title>
+    <link>https://go1me.github.io/tags/%E5%B7%A5%E5%85%B7/</link>
+    <description>Recent content in 工具 on go1me&#39;s 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 17 Dec 2021 19:19:55 +0800</lastBuildDate><atom:link href="https://go1me.github.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 17 Dec 2021 19:19:55 +0800</lastBuildDate><atom:link href="https://go1me.github.io/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>介绍一款自己编写的CTF工具</title>
       <link>https://go1me.github.io/post/%E4%BB%8B%E7%BB%8D%E4%B8%80%E6%AC%BE%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84ctf%E5%B7%A5%E5%85%B7/</link>
@@ -28,27 +28,6 @@
  特别要说明的是，插件不是程序一开启就全部加载的，而是选中一个加载一个，为什么要这样设计呢，第一是加快程序开启速度，二是很多插件依赖各种各样的python包，一股脑加载需要安装各种包，就烦死了，选中的时候再加载，如果你的环境缺什么包，报错信息会显示在输入框，及时安装即可。
 其他功能  从“文件”菜单可以导入文件到输入框，和将输入框/输出框到处到文件 “编辑”菜单提供了：
  清空，清空输入框 复制输出，将输出框结果复制到剪切板 输出变输入，适合多次编码或者多次解码的场景，比如url多次编码，编码一次，将输出变为输入，继续编码 复制当前插件路径，这个功能是用来方便抄代码的 导入测试用例，方便快速验证插件，测试用例来自插件模板中的plugin_test_in字段 常用的三个功能做成了按钮放到了输入框的上面    然后，就没了，觉得没啥的各位大佬直接忽略。</description>
-    </item>
-    
-    <item>
-      <title>一道逆向题ROR的writeup</title>
-      <link>https://go1me.github.io/post/%E4%B8%80%E9%81%93%E9%80%86%E5%90%91%E9%A2%98ror%E7%9A%84writeup/</link>
-      <pubDate>Fri, 03 Dec 2021 20:10:19 +0800</pubDate>
-      
-      <guid>https://go1me.github.io/post/%E4%B8%80%E9%81%93%E9%80%86%E5%90%91%E9%A2%98ror%E7%9A%84writeup/</guid>
-      <description>11月20日的时候，参加了西湖论剑CTF线上初选赛，此为此次竞赛REVERS第三题的wirteup，该题题目为ROR。
-查看文件类型  使用file文件查看文件类型，发现文件为32位exe文件
-使用IDA打开exe文件  使用32位IDA打开然后打开字符串页面发现有flag字符串
-跳过去代码是这样的
-代码走查 代码第37行接收输入Dst;
-代码第38行判断输入字符长度是否为40;
-代码第39到46行（截图没截全）是通过输入Dst通过某种变换得到Buf2;
-代码第47行是比较Buf2和unk_405100内存中的内容;
-代码第53行提示如果47行内存内容相同则输入的Dst就是flag，flag长度为40个字符。
-公式变换 关键就是30行到46行，现在的写法比较不好理解，我们稍微转换一下*(&amp;amp;v2+j)其实就是v2[j]，以此类推得出如下公式:
-for ( i = 0; i &amp;lt; 0x28; i += 8 ) { for ( j = 0; j &amp;lt; 8; ++j ) { v0=((v2[j]&amp;amp;v16[i])&amp;lt;&amp;lt;(8-(3- j)%8))|((v2[j]&amp;amp;v16[i])&amp;gt;&amp;gt;(3-j)%8)|((v2[j]&amp;amp;v15[i])&amp;lt;&amp;lt;(8-(2-j)%8))|((v2[j]&amp;amp;v15[i])&amp;gt;&amp;gt;(2 - j)%8)|((v2[j]&amp;amp;v14[i])&amp;lt;&amp;lt;(8-(1-j)%8))|((v2[j]&amp;amp;v14[i])&amp;gt;&amp;gt;(1-j)%8)|((v2[j]&amp;amp;Dst[i])&amp;lt;&amp;lt;(8-(0-j)%8))|((v2[j]&amp;amp;Dst[i])&amp;gt;&amp;gt;(0-j)%8); Buf2[j + i] = byte_405000[((v2[j]&amp;amp;v20[i])&amp;lt;&amp;lt;(8-(7-j)%8))|((v2[j]&amp;amp;v20[i])&amp;gt;&amp;gt;(7 - j)%8)|((v2[j]&amp;amp;v19[i])&amp;lt;&amp;lt;(8-(6-j)%8))|((v2[j]&amp;amp;v19[i])&amp;gt;&amp;gt;(6-j)%8)|((v2[j]&amp;amp;v18[i])&amp;lt;&amp;lt;(8-(5-j)%8))|((v2[j]&amp;amp;v18[i])&amp;gt;&amp;gt;(5-j)%8)|((v2[j]&amp;amp;v17[i])&amp;lt;&amp;lt;(8-(4-j)%8)|((v2[j]&amp;amp;v17[i])&amp;gt;&amp;gt;(4-j)%8)|v0)]; } } 其中有一个重复的结构(v2[j]&amp;amp;v16[i])&amp;laquo;(8-(3- j)%8))|((v2[j]&amp;amp;v16[i])&amp;raquo;(3-j)%8)，可以百度一下，这个就是ROR算法，循环右移。
-因此上面的长长的公式可以再变化：
-for ( i = 0; i &amp;lt; 0x28; i += 8 ) { for ( j = 0; j &amp;lt; 8; ++j ) { v0= ROR(v2[j]&amp;amp;v16[i],(3-j)%8)|ROR(v2[j]&amp;amp;v15[i],(2-j)%8)|ROR(v2[j]&amp;amp;v14[i],(1-j)%8)|ROR(v2[j]&amp;amp;Dst[i],(0-j)%8); Buf2[j + i] = byte_405000[ROR(v2[j]&amp;amp;v20[i],(7-j)%8)|ROR(v2[j]&amp;amp;v19[i],(6-j)%8)|ROR(v2[j]&amp;amp;v18[i],(5-j)%8)|ROR(v2[j]&amp;amp;v17[i],(4-j)%8)|v0]; } } 其中ROR为循环右移函数。</description>
     </item>
     
   </channel>

@@ -155,7 +155,7 @@
                 </path>
               </svg>
               Posts
-              <span class="Counter">3</span>
+              <span class="Counter">4</span>
             </a>
           </nav>
           <div class="profile-color-modes js-promo-color-modes-banner-profile isInitialToggle">
@@ -468,7 +468,7 @@
         </path>
       </svg>
       Posts
-      <span class="Counter ">3</span>
+      <span class="Counter ">4</span>
     </a>
   </nav>
 </div>
@@ -492,6 +492,68 @@
           Popular posts
         </h2>
         <ol class="d-flex flex-wrap list-style-none gutter-condensed mb-4 js-pinned-items-reorder-list">
+          
+          <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
+            <div
+              class="Box pinned-item-list-item d-flex p-3 width-full js-pinned-item-list-item public source reorderable sortable-button-item">
+              <div class="pinned-item-list-item-content">
+                <div class="d-flex width-full flex-items-center position-relative">
+                  <svg class="octicon octicon-repo mr-2 text-gray flex-shrink-0" viewBox="0 0 16 16" version="1.1"
+                    width="16" height="16">
+                    <path fill-rule="evenodd"
+                      d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
+                    </path>
+                  </svg>
+                  <a class="text-bold flex-auto min-width-0" href="https://go1me.github.io/post/%E4%BB%8B%E7%BB%8D%E4%B8%80%E6%AC%BE%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84ctf%E5%B7%A5%E5%85%B7/">
+                    <span class="repo" title="介绍一款自己编写的CTF工具">介绍一款自己编写的CTF工具</span>
+                  </a>
+                </div>
+
+
+                <div name="summary" class="pinned-item-desc text-gray text-small d-block mt-2 mb-3">
+                  本人最近参加了网鼎杯ctf大赛的线上海选赛，在准备比赛的过程中，自然需要用到很多工具，因为网上找的一些工具感觉都不是很顺手，而且也怕加料，因此自己再造一副轮子，也算是练手。练手有练手的好处，可以把常用的代码集中在这个工具下，抄的时候，额，不是，是找的时候好找。觉得用着还可以，这里分享给大家。
+介绍  先上截图： 各位大佬可能说了，这种工具不是满天飞么，你这个有啥优点，优点如下：
+ 纯python编写，GUI框架采用的是Tkinter，支持跨平台（只支持python3） 插件化编程，只要用python按照预设的简单插件格式编写插件，放置于plugins，启动程序后会自动识别插件 想想，就这么多吧，没了  使用方法：  去https://github.com/go1me/ctftools将代码克隆下来 切换到目录下运行python3 mian.py即可，如果运行过程中发现缺包，按照报错提示安装即可 选择插件，插件有两种选择方式  1)通过界面上的下拉框选择 2)通过菜单栏选择，菜单栏分为解密，加密，转换，rsa和其他五给分类 3)输入框输入需要处理的字符串 本文以栅栏密码暴力破解为例，输入框输入需要破解的字符串 4)点击run 然后在输出框查看结果
+插件编写 插件模板为
+非常简单，以plugin为开头的全局变量为插件的属性参数，按照要求写即可。然后实现一个run函数，run的输入来自输入框的字符串，输出会反馈到输出框。
+编写好的插件放置到plugins文件夹下，然后重启python3 mian.py即可在界面上显示。
+编写插件的时候有给窍门，就是插件的名字plugin_name，如果字符串中含有“加密”或者“编码”两个字符，会自动分类到“加密”的菜单栏
+如果含有“解密”或者“解码”两个字符会自动分类到“解密”的菜单栏
+如果含有“转”，比如“字符串转十六进制”，会被分类到“转换”的菜单栏
+如果含有“rsa”，即可分类到“rsa”的菜单栏
+剩下的插件会被分类到其他
+目前已经编写了37个插件，还在持续增加中。
+ 特别要说明的是，插件不是程序一开启就全部加载的，而是选中一个加载一个，为什么要这样设计呢，第一是加快程序开启速度，二是很多插件依赖各种各样的python包，一股脑加载需要安装各种包，就烦死了，选中的时候再加载，如果你的环境缺什么包，报错信息会显示在输入框，及时安装即可。
+其他功能  从“文件”菜单可以导入文件到输入框，和将输入框/输出框到处到文件 “编辑”菜单提供了：
+ 清空，清空输入框 复制输出，将输出框结果复制到剪切板 输出变输入，适合多次编码或者多次解码的场景，比如url多次编码，编码一次，将输出变为输入，继续编码 复制当前插件路径，这个功能是用来方便抄代码的 导入测试用例，方便快速验证插件，测试用例来自插件模板中的plugin_test_in字段 常用的三个功能做成了按钮放到了输入框的上面    然后，就没了，觉得没啥的各位大佬直接忽略。
+                </div>
+
+                <p class="mb-0 f6 text-gray">
+                  
+                  
+                  <a href="/tags/ctf" class="pinned-item-meta muted-link ">
+                    <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                      <path fill-rule="evenodd"
+                        d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                      </path>
+                    </svg>
+                    CTF
+                  </a>
+                  
+                  <a href="/tags/%E5%B7%A5%E5%85%B7" class="pinned-item-meta muted-link ">
+                    <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
+                      <path fill-rule="evenodd"
+                        d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                      </path>
+                    </svg>
+                    工具
+                  </a>
+                  
+                  
+                </p>
+              </div>
+            </div>
+          </li>
           
           <li class="col-12 col-md-6 col-lg-6 mb-3 d-flex flex-content-stretch">
             <div
@@ -647,6 +709,12 @@ github仓库创建  创建第一个仓库用于保存Hugo源文件及markdown文
 
     
     <div class="mt-4 position-relative" id="contributions" data='[
+{
+  "title": "%e4%bb%8b%e7%bb%8d%e4%b8%80%e6%ac%be%e8%87%aa%e5%b7%b1%e7%bc%96%e5%86%99%e7%9a%84CTF%e5%b7%a5%e5%85%b7",
+  "link": "https://go1me.github.io/post/%E4%BB%8B%E7%BB%8D%E4%B8%80%E6%AC%BE%E8%87%AA%E5%B7%B1%E7%BC%96%E5%86%99%E7%9A%84ctf%E5%B7%A5%E5%85%B7/",
+  "publishDate": "2021-12-17%2019:19:55"
+},
+
 {
   "title": "%e4%b8%80%e9%81%93%e9%80%86%e5%90%91%e9%a2%98ROR%e7%9a%84writeup",
   "link": "https://go1me.github.io/post/%E4%B8%80%E9%81%93%E9%80%86%E5%90%91%E9%A2%98ror%E7%9A%84writeup/",

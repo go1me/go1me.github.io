@@ -10,7 +10,7 @@
     <link rel="stylesheet" href='https://go1me.github.io/css/light.css' />
     <link rel="stylesheet" href='https://go1me.github.io/css/dark.css' />
     <link rel="stylesheet" href='https://go1me.github.io/css/syntax.css' />
-    <title>ctf - go1me&#39;s 博客</title>
+    <title>工具 - go1me&#39;s 博客</title>
     
     <link rel="icon" type="image/x-icon" href='/images/github.png'>
     
@@ -22,11 +22,11 @@
 <meta name="keywords"
   content='blog, google analytics' />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="https://go1me.github.io/tags/ctf/" />
+<link rel="canonical" href="https://go1me.github.io/categories/%E5%B7%A5%E5%85%B7/" />
 
 
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="ctf - go1me&#39;s 博客" />
+<meta name="twitter:title" content="工具 - go1me&#39;s 博客" />
 <meta name="twitter:description"
   content="" />
 <meta name="twitter:site" content="https://go1me.github.io/" />
@@ -36,11 +36,11 @@
 
 
 <meta property="og:type" content="website" />
-<meta property="og:title" content="ctf - go1me&#39;s 博客">
+<meta property="og:title" content="工具 - go1me&#39;s 博客">
 <meta property="og:description"
   content="" />
-<meta property="og:url" content="https://go1me.github.io/tags/ctf/" />
-<meta property="og:site_name" content="ctf" />
+<meta property="og:url" content="https://go1me.github.io/categories/%E5%B7%A5%E5%85%B7/" />
+<meta property="og:site_name" content="工具" />
 <meta property="og:image"
   content="https://go1me.github.io/">
 <meta property="og:image:width" content="2048">
@@ -49,7 +49,7 @@
 
 
 
-<link href="/tags/ctf/index.xml" rel="alternate" type="application/rss+xml" title="go1me&#39;s 博客" />
+<link href="/categories/%E5%B7%A5%E5%85%B7/index.xml" rel="alternate" type="application/rss+xml" title="go1me&#39;s 博客" />
 
 
 
@@ -458,7 +458,7 @@
       </svg>
       Overview
     </a>
-    <a class='UnderlineNav-item   selected '
+    <a class='UnderlineNav-item  '
       href="https://go1me.github.io//post/">
       <svg class="octicon octicon-repo UnderlineNav-octicon hide-sm" height="16" viewBox="0 0 16 16" version="1.1"
         width="16">
@@ -477,25 +477,6 @@
 <div>
   <div class="position-relative">
     <div>
-      
-      <div class="TableObject border-bottom border-gray-light py-3">
-        <div class="user-repo-search-results-summary TableObject-item TableObject-item--primary v-align-top">
-          <strong>2</strong>
-          results
-          for <strong>ctf</strong>
-        </div>
-        <div class="TableObject-item text-right v-align-top">
-          <a class="issues-reset-query text-normal d-inline-block ml-3" href="https://go1me.github.io//post/">
-            <svg class="octicon octicon-x issues-reset-query-icon mt-1" viewBox="0 0 16 16" version="1.1" width="16"
-              height="16">
-              <path fill-rule="evenodd"
-                d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z">
-              </path>
-            </svg>
-            Clear filter
-          </a>
-        </div>
-      </div>
       
       <ul>
         
@@ -554,73 +535,6 @@
               <relative-time datetime=" Fri, 17 Dec 2021 19:19:55 &#43;0800" class="no-wrap"
                 title=" Fri, 17 Dec 2021 19:19:55 &#43;0800">
                 Fri, 17 Dec 2021 19:19:55 &#43;0800
-              </relative-time>
-            </div>
-          </div>
-        </li>
-        
-        <li class="col-12 d-flex width-full py-4 border-bottom color-border-secondary public source">
-          <div class="col-12 d-inline-block">
-            <div class="d-inline-block mb-1">
-              <h3 class="wb-break-all">
-                <a href="https://go1me.github.io/post/%E4%B8%80%E9%81%93%E9%80%86%E5%90%91%E9%A2%98ror%E7%9A%84writeup/">一道逆向题ROR的writeup</a>
-              </h3>
-            </div>
-
-            <div>
-              <div class="col-12 d-inline-block text-gray mb-2 pr-4">
-                11月20日的时候，参加了西湖论剑CTF线上初选赛，此为此次竞赛REVERS第三题的wirteup，该题题目为ROR。
-查看文件类型  使用file文件查看文件类型，发现文件为32位exe文件
-使用IDA打开exe文件  使用32位IDA打开然后打开字符串页面发现有flag字符串
-跳过去代码是这样的
-代码走查 代码第37行接收输入Dst;
-代码第38行判断输入字符长度是否为40;
-代码第39到46行（截图没截全）是通过输入Dst通过某种变换得到Buf2;
-代码第47行是比较Buf2和unk_405100内存中的内容;
-代码第53行提示如果47行内存内容相同则输入的Dst就是flag，flag长度为40个字符。
-公式变换 关键就是30行到46行，现在的写法比较不好理解，我们稍微转换一下*(&amp;v2+j)其实就是v2[j]，以此类推得出如下公式:
-for ( i = 0; i &lt; 0x28; i += 8 ) { for ( j = 0; j &lt; 8; ++j ) { v0=((v2[j]&amp;v16[i])&lt;&lt;(8-(3- j)%8))|((v2[j]&amp;v16[i])&gt;&gt;(3-j)%8)|((v2[j]&amp;v15[i])&lt;&lt;(8-(2-j)%8))|((v2[j]&amp;v15[i])&gt;&gt;(2 - j)%8)|((v2[j]&amp;v14[i])&lt;&lt;(8-(1-j)%8))|((v2[j]&amp;v14[i])&gt;&gt;(1-j)%8)|((v2[j]&amp;Dst[i])&lt;&lt;(8-(0-j)%8))|((v2[j]&amp;Dst[i])&gt;&gt;(0-j)%8); Buf2[j + i] = byte_405000[((v2[j]&amp;v20[i])&lt;&lt;(8-(7-j)%8))|((v2[j]&amp;v20[i])&gt;&gt;(7 - j)%8)|((v2[j]&amp;v19[i])&lt;&lt;(8-(6-j)%8))|((v2[j]&amp;v19[i])&gt;&gt;(6-j)%8)|((v2[j]&amp;v18[i])&lt;&lt;(8-(5-j)%8))|((v2[j]&amp;v18[i])&gt;&gt;(5-j)%8)|((v2[j]&amp;v17[i])&lt;&lt;(8-(4-j)%8)|((v2[j]&amp;v17[i])&gt;&gt;(4-j)%8)|v0)]; } } 其中有一个重复的结构(v2[j]&amp;v16[i])&laquo;(8-(3- j)%8))|((v2[j]&amp;v16[i])&raquo;(3-j)%8)，可以百度一下，这个就是ROR算法，循环右移。
-因此上面的长长的公式可以再变化：
-for ( i = 0; i &lt; 0x28; i += 8 ) { for ( j = 0; j &lt; 8; ++j ) { v0= ROR(v2[j]&amp;v16[i],(3-j)%8)|ROR(v2[j]&amp;v15[i],(2-j)%8)|ROR(v2[j]&amp;v14[i],(1-j)%8)|ROR(v2[j]&amp;Dst[i],(0-j)%8); Buf2[j + i] = byte_405000[ROR(v2[j]&amp;v20[i],(7-j)%8)|ROR(v2[j]&amp;v19[i],(6-j)%8)|ROR(v2[j]&amp;v18[i],(5-j)%8)|ROR(v2[j]&amp;v17[i],(4-j)%8)|v0]; } } 其中ROR为循环右移函数。
-              </div>
-            </div>
-
-            <div class="f6 text-gray mt-2">
-              
-              
-              <a class="muted-link mr-3" href="/tags/ctf">
-                <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                  <path fill-rule="evenodd"
-                    d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
-                  </path>
-                </svg>
-                ctf
-              </a>
-              
-              <a class="muted-link mr-3" href="/tags/revers">
-                <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                  <path fill-rule="evenodd"
-                    d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
-                  </path>
-                </svg>
-                revers
-              </a>
-              
-              <a class="muted-link mr-3" href="/tags/writeup">
-                <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                  <path fill-rule="evenodd"
-                    d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
-                  </path>
-                </svg>
-                writeup
-              </a>
-              
-              
-
-              Created
-              <relative-time datetime=" Fri, 03 Dec 2021 20:10:19 &#43;0800" class="no-wrap"
-                title=" Fri, 03 Dec 2021 20:10:19 &#43;0800">
-                Fri, 03 Dec 2021 20:10:19 &#43;0800
               </relative-time>
             </div>
           </div>
