@@ -188,9 +188,9 @@ for ( i = 0; i &amp;lt; 0x28; i &#43;= 8 ) { for ( j = 0; j &amp;lt; 8; &#43;&#4
 
                   
                   <span class="file-info-divider"></span>
-                  Modified <relative-time datetime="Fri, 03 Dec 2021 20:52:53 &#43;0800"
+                  Modified <relative-time datetime="Wed, 22 Jun 2022 00:11:31 &#43;0800"
                     class="no-wrap">
-                    Fri, 03 Dec 2021 20:52:53 &#43;0800</relative-time>
+                    Wed, 22 Jun 2022 00:11:31 &#43;0800</relative-time>
                   
                 </div>
               </div>
@@ -317,7 +317,7 @@ for ( i = 0; i &amp;lt; 0x28; i &#43;= 8 ) { for ( j = 0; j &amp;lt; 8; &#43;&#4
 </code></pre></div><p>相当于把Dst[0]最高次位循环右移7位，Dst[1]的次高位循环右移0位，Dst[2]的次高位循环右移1位……，然后或起来,依此类推</p>
 <h1 id="逻辑分析">逻辑分析</h1>
 <p>这个过程用文字描述有些晦涩，画个图：<br>
-<img src="/images/2021120306.png" alt="6"> 
+<img src="/images/2021120306.png" alt="6">
 如上图，相当于把Dst的每8个字节一组的每一个字节的bit拆出来，按照图中的逻辑组成新的字节作为下标取byte_405000数组中的值。<br>
 那么我们把byte_405000的小标拿出来把每个char字符大散成bit然后按照这个逻辑逆序重新拼装回去就是原始输入Dst的值，也就是flag。<br>
 通过如下代码段可知，byte_405000内的内容 变换位置后于unk_405100内的内容相等，即可以通过unk_405100反查byte_405000下标序列<br>

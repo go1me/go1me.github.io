@@ -6,7 +6,21 @@
     <description>Recent content in writeup on go1me&#39;s 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 03 Dec 2021 20:10:19 +0800</lastBuildDate><atom:link href="https://go1me.github.io/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Jun 2022 23:32:17 +0800</lastBuildDate><atom:link href="https://go1me.github.io/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bwapp_writeup</title>
+      <link>https://go1me.github.io/post/bwapp_writeup/</link>
+      <pubDate>Tue, 21 Jun 2022 23:32:17 +0800</pubDate>
+      
+      <guid>https://go1me.github.io/post/bwapp_writeup/</guid>
+      <description>docker 搭建 docker pull raesen/bwapp docker run --rm -d -p8081:80 raesene/bwapp write up A1 - Injection HTML Injection-Reflected(GET) low 直接输入就行，任何的html语言,
+比如xss payload &amp;lt;script&amp;gt;alert&amp;lt;1&amp;gt;&amp;lt;/script&amp;gt;
+或者 url链接&amp;lt;a href=&amp;quot;http://www.baidu.com&amp;quot;&amp;gt;点击&amp;lt;/a&amp;gt;
+medium url编码绕过
+比如xss payload &amp;lt;script&amp;gt;alert&amp;lt;1&amp;gt;&amp;lt;/script&amp;gt; 改成%3c%73%63%72%69%70%74%3e%61%6c%65%72%74%28%31%29%3c%2f%73%63%72%69%70%74%3e
+high 无解</description>
+    </item>
+    
     <item>
       <title>一道逆向题ROR的writeup</title>
       <link>https://go1me.github.io/post/%E4%B8%80%E9%81%93%E9%80%86%E5%90%91%E9%A2%98ror%E7%9A%84writeup/</link>
