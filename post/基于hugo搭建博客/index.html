@@ -187,7 +187,7 @@ github仓库创建  创建第一个仓库用于保存Hugo源文件及markdown文
                         <path fill-rule="evenodd" d="M2 4a1 1 0 100-2 1 1 0 000 2zm3.75-1.5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zm0 5a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5zM3 8a1 1 0 11-2 0 1 1 0 012 0zm-1 6a1 1 0 100-2 1 1 0 000 2z"></path>
                       </svg>
                     </summary>
-                          1036 Words
+                          1042 Words
                     
 
                   </div>
@@ -262,10 +262,13 @@ git push
 <h2 id="新的环境写博客">新的环境写博客</h2>
 <p>最好是ubuntu啦<br>
 <code>sudo apt install hugo</code>安装hugo<br>
-克隆blog<code>git clone --recursive git@github.com:go1me/blog.git</code><br>
-然后写写写</p>
+克隆blog<code>git clone --recursive git@github.com:go1me/blog.git</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="nb">cd</span> blog
+git pull
+<span class="nb">cd</span> public
+git pull
+</code></pre></div><p>然后写写写</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh">hugo -D
-<span class="nb">cd</span> blog
 <span class="c1">#解决fatal: in unpopulated submodule &#39;public&#39;</span>
 git rm -rf --cached public
 <span class="c1">#先提交public,即go1me.github.io</span>
